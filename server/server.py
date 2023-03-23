@@ -3,7 +3,9 @@ from langchain.chat_models import ChatOpenAI
 from langchain.agents import initialize_agent, Tool, SelfAskWithSearchChain
 #from langchain.tools import BaseTool
 from pydantic import BaseModel
-
+import sys
+sys.path.insert(1, '/workspaces/llm-tools-api')
+import config
 #from langchain.chains import LLMRequestsChain, LLMChain
 #from langchain.utilities.wolfram_alpha import WolframAlphaAPIWrapper
 from fastapi import FastAPI
@@ -43,7 +45,11 @@ tools = [
 class UserQuestion(BaseModel):
   user_prompt: str
 
-chatgpt_agent = initialize_agent(tools, chatgpt, agent="zero-shot-react-description", verbose=True)
+class AIReply(BaseModel):
+  reply: str = None
+
+
+chatgpt_agent = initialize_agent(tools, chatgpt, agent="zero-shot-react-description", verbose=False)
 
 respones = {}
 
@@ -52,6 +58,10 @@ async def search_w_openai(prompt_id: int, user_prompt: UserQuestion):
   if prompt_id in respones:
     return {"Error": f"Prompt {prompt_id} already exists"}
   respones[prompt_id] = user_prompt
-  #ai_response = chatgpt_agent.run(respones[prompt_id])
+  #respones[reply] = chatgpt_agent.run(respones[prompt_id])
   #respones.append({"user_prompt": respones[prompt_id]})
   return respones[prompt_id]
+
+@app.get("/get_all")
+async def get_all_prompts():
+  return respones

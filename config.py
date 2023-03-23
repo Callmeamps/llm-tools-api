@@ -1,7 +1,7 @@
 import os
 
 os.environ[
-"OPENAI_API_KEY"] = "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"
+"OPENAI_API_KEY"] = "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"
 os.environ["COHERE_API_KEY"] = "ADnBoBfpW2pYfsENkPHG525dnwjU0xRMSbVtokjV"
 os.environ[
 "SERPAPI_API_KEY"] = "3feeb1b4882c4aff3ec2e7fdd8750e17d77bebddcfab2a5d0ce11edec801b6a3"
