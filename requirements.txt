@@ -1,0 +1,7 @@
+streamlit
+langchain
+fastapi[all]
+openai
+cohere
+huggingface_hub
+google-search-results
